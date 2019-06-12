@@ -1,10 +1,10 @@
 = pi-dice
 
-A program that simulates a variety of dice rolls and outputs to two 7-segment displays.
+* A program that simulates a variety of dice rolls and outputs to two 7-segment displays.
 
 == Set Up
 
-.Defining dice set rolls
+* Defining dice set rolls
 ----
 dices = (
          dice(4),
@@ -16,7 +16,7 @@ dices = (
          )
 ----
 
-.Define pins for 7-segment displays
+* Define pins for 7-segment displays
 ----
 d0_pins = {"a": 20,
            "b": 21,
@@ -40,7 +40,7 @@ roll_button = Button(5)
 dice_button = Button(2)
 ----
 
-.Instantiate controller
+* Instantiate controller
 ----
 d0 = display_7seg(d0_pins) # Builds display
 d1 = display_7seg(d1_pins)
@@ -48,7 +48,7 @@ ds = {"0": d0, "1": d1}    # Creates a map of displays
 
 d_cont = display_controller(ds) # Creates a controller
 
-== Rolling some dice
+== Roll some dice!
 NUM = die.roll()
 d_cont.jumble(DURATION, DELAY, die.sides())   # Optional function, jumbles the display during the roll
 d_cont.display_num(NUM, DURATION, DELAY)      # Displays the dice roll
