@@ -1,0 +1,2 @@
+= pi-dice
+A program that simulates a variety of dice rolls and outputs to two 7-segment displays.
