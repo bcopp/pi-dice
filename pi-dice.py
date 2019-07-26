@@ -198,8 +198,6 @@ class display_7seg:
       self.nine()
     
 
-# === Dice Definitions ===
-
 class dice:
   def __init__(self, UPPER_BOUND):
     self.UPPER_BOUND = UPPER_BOUND
@@ -210,6 +208,7 @@ class dice:
   def sides(self):
     return self.UPPER_BOUND
     
+# === Dice Definitions ===
 
 dices = (
          dice(4),
@@ -244,8 +243,7 @@ d1_pins = {"a": 25,
 DURATION = .8
 DELAY = .5
 
-# === Main ===
-
+# === Initialize Displays ===
 d0 = display_7seg(d0_pins)
 d1 = display_7seg(d1_pins)
 ds = {"0": d0, "1": d1}
@@ -254,7 +252,7 @@ d_cont = display_controller(ds)
 roll_button = Button(5)
 dice_button = Button(2)
 
-
+# === Main ===
 dices_i = iter(dices)
 die = next(dices_i)
 

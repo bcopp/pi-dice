@@ -1,23 +1,12 @@
 = pi-dice
 
-* A python program that simulates a variety of dice rolls and outputs to two 7-segment displays.
+A python program that simulates a variety of dice rolls and outputs to two 7-segment displays.
 
 == Set Up
+pi-dice is configured by defining a dictonary of display output pins. These options are then passed to the display controller.
 
-=== Defining dice set rolls
-
-----
-dices = (
-         dice(4),
-         dice(6),
-         dice(8),
-         dice(10),
-         dice(12),
-         dice(20)
-         )
-----
-
-=== Define pins for 7-segment displays
+=== Configuring the 7-segment displays
+Output pins used to control the display are configurable by defining a dictionary with the key as the segment idenifier and the value as the corrisponding pin number. Below is an example of configurations for two displays.
 
 ----
 d0_pins = {"a": 20,
@@ -38,25 +27,56 @@ d1_pins = {"a": 25,
            "g": 7,
            "h": 11}
 
+----
+
+Buttons are defined separately
+
+----
 roll_button = Button(5)
 dice_button = Button(2)
 ----
 
 === Instantiate controller
+Intialization is done like so.
 
 ----
-d0 = display_7seg(d0_pins) # Builds display
+d0 = display_7seg(d0_pins) # Builds displays
 d1 = display_7seg(d1_pins)
-ds = {"0": d0, "1": d1}    # Creates a map of displays
+ds = {"0": d0, "1": d1}    # Define the order of the displays
 
-d_cont = display_controller(ds) # Creates a controller
+d_cont = display_controller(ds) # Creates a controller with a map of displays
 ----
+
+== Rolling Dice
+How a user decides to roll is up to them but pi-dice provides a helper class `dice` for doing so.
+
+=== Configuring a dice set
+The dice set is defined as a list of dice objects. Below is an example of a standard Dnd set containing 4, 6, 8, 10, 12, and 20 sided dice.
+
+----
+dices = (
+         dice(4),
+         dice(6),
+         dice(8),
+         dice(10),
+         dice(12),
+         dice(20)
+         )
+----
+
+
 
 === Roll some dice!
+Rolling a dice is done by selecting an object from their set and calling the `roll()` function. The number can then be displayed by calling `.display_num(Number, Duration, Delay)` on the display controller.
 
 ----
 NUM = die.roll()
-d_cont.jumble(DURATION, DELAY, die.sides())   # Optional function, jumbles the display during the roll
 d_cont.display_num(NUM, DURATION, DELAY)      # Displays the dice roll
 ----
 
+=== Special functions
+pi-dice also provides a function to display random numbers while rolling. This is done by calling `jumble(Duration, Delay, DiceSides)` before displaying the final number.
+
+````
+d_cont.jumble(DURATION, DELAY, die.sides())   # Optional function, jumbles the display during the roll
+````
